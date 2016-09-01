@@ -1,3 +1,7 @@
+
+
+<?php require_once ('config/db.php') ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,28 +16,42 @@
 
 
 <h1>Lista De Tarefas PATRICK</h1>
-<div class="form-group">
-    <label for="exampleInputEmail1">Tarefa</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-  </div>
-<input type="submit" name="enviar" value="Enviar" class="btn btn-default"></button>
+    <form class="form-group" name="form" action="saveTarefa.php" method="POST">
+    <label for="exampleInputEmail1">Nova Tarefa</label>
+    <input type="text" name="tarefa" class="form-control" id="exampleInputEmail1" placeholder="Adicionar:Tarefa"></br>
+<input type="submit" name="enviar" value="Adicionar" class="btn btn-default"></button>
 
-</div>
+</form>
 
-<div class="tarefas">
+<table class="table table-striped">
 <ul>
-	<?php for($i=1;$i <=10; $i++): ?>
+	<?php 
+
+  $query = mysql_query("SELECT * FROM tarefas") or die(mysql_error());
+   while ($row = mysql_fetch_array($query, MYSQL_NUM)){
+
+
+
+
+
+      ?>
 <li>
-<span>Tarefa 1</span>
-<a href="">Editar</a>
-<a href="">Excluir</a>
+
+<tr>
+<td class="tarefa">Tarefa</td>
+</tr>
+
+
+<td><span><?php echo $row[1];?></span></td>
+<th><a href="editar.php?id=<?= $row[0]?>">Editar</a></th>
+<th><a href="excluir.php?id=<?= $row[0]?>">Excluir</a></th>
 </li>
 
-<?php endfor; ?>
+<?php } ?>
 
 
 </ul>
-	</div>
+</table>
 
 
 
